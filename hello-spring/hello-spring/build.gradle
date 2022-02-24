@@ -1,0 +1,50 @@
+//설정파일도 기존에는 다 수작업으로 쳤으나 이제는 스프링부트가 설정파일까지 제공됨
+plugins {
+	id 'org.springframework.boot' version '2.3.1.RELEASE'	//스프링부트버전
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'	//자바언어설정
+}
+
+group = 'hello'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'	//자바버전
+
+repositories {
+	mavenCentral()	//라이브러리 다운받는 곳 기본적으로는 mavenCentral이라는 공개된 사이트에서, 변경가능
+}
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'	//html만드는 템플릿엔진
+	implementation 'org.springframework.boot:spring-boot-starter-web'	//web프로젝트 선택했던거
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'	//기본적으로 요즘에는 테스트라이브러리가 자동으로 들어감
+	runtimeOnly 'org.springfamework.boot:spring-boot-devtools'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+/*gradle은 의존관계가 있는 라이브러리를 함께 다운
+
+스프링 부트 라이브러리
+spring-boot-starter-web
+	spring-boot-starter-tomcat: 톰캣(웹서버)
+	spring-webmvc:스트링 웹 MVC
+spring-boot-starter-thymeleaf:타임리프 템플릿 엔진(View)
+spring-boot-starter(공통):스프링 부트 + 스프링 코어 + 로깅
+	spring-boot
+		spring-core
+	spring-boot-starter-logging
+		logback,slf4j
+
+테스트 라이브러리
+spring-boot-starter-test
+	junit:테스트 프레임 워크
+	mockito:목 라이브러리
+	assertj:테스트 코드를 좀 더 편하게 작성하게 도와주는 라이브러리
+	spring-test:스프링 통합 테스트 지원*/
